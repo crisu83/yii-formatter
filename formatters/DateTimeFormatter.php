@@ -9,7 +9,6 @@ class DateTimeFormatter extends Formatter
 	public $format = self::FORMAT_EUROPEAN;
 	public $dateWidth = 'normal';
 	public $timeWidth = 'normal';
-	public $dateOnly = false;
 
 	/**
 	 * Formats the given attribute.
@@ -19,7 +18,7 @@ class DateTimeFormatter extends Formatter
 	 */
 	public function formatAttribute($object, $attribute)
 	{
-		return Yii::app()->dateFormatter->formatDateTime(strtotime($object->$attribute), $this->dateWidth, !$this->dateOnly ? $this->timeWidth : null);
+		return Yii::app()->dateFormatter->formatDateTime(strtotime($object->$attribute), $this->dateWidth, $this->timeWidth);
 	}
 
 	/**
@@ -30,7 +29,7 @@ class DateTimeFormatter extends Formatter
 	 */
 	public function unformatAttribute($object, $attribute)
 	{
-		return date(!$this->dateOnly ? 'Y-m-d H:i:s' : 'Y-m-d', $this->convertDateToTimestamp($object->$attribute));
+		return date($this->timeWidth !== null ? 'Y-m-d H:i:s' : 'Y-m-d', $this->convertDateToTimestamp($object->$attribute));
 	}
 
 	/**
