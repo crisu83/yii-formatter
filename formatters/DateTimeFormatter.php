@@ -1,4 +1,11 @@
 <?php
+/**
+ * DateTimeFormatter class file.
+ * @author Christoffer Niska <christoffer.niska@gmail.com>
+ * @copyright Copyright &copy; Christoffer Niska 2013-
+ * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @package crisu83.yii-formatter.formatters
+ */
 
 class DateTimeFormatter extends Formatter
 {
@@ -6,9 +13,23 @@ class DateTimeFormatter extends Formatter
 	const FORMAT_AMERICAN = 'american';
 	const FORMAT_EUROPEAN = 'european';
 
+	// Date and time widths.
+	const WIDTH_SHORT = 'short';
+	const WIDTH_MEDIUM = 'medium';
+	const WIDTH_LONG = 'long';
+
+	/**
+	 * @var string the date format.
+	 */
 	public $format = self::FORMAT_EUROPEAN;
-	public $dateWidth = 'normal';
-	public $timeWidth = 'normal';
+	/**
+	 * @var string the date width, valid values are 'short', 'medium', 'long' (defaults to 'medium').
+	 */
+	public $dateWidth = self::WIDTH_MEDIUM;
+	/**
+	 * @var string the time width, valid values are 'short', 'medium', 'long' (defaults to 'medium').
+	 */
+	public $timeWidth = self::WIDTH_MEDIUM;
 
 	/**
 	 * Formats the given attribute.
@@ -16,9 +37,9 @@ class DateTimeFormatter extends Formatter
 	 * @param string $attribute the name of the attribute.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	protected function formatAttribute($object, $attribute)
 	{
-		return Yii::app()->dateFormatter->formatDateTime(strtotime($object->$attribute), $this->dateWidth, $this->timeWidth);
+		$object->$attribute = Yii::app()->dateFormatter->formatDateTime(strtotime($object->$attribute), $this->dateWidth, $this->timeWidth);
 	}
 
 	/**
@@ -27,9 +48,9 @@ class DateTimeFormatter extends Formatter
 	 * @param string $attribute the name of the attribute.
 	 * @return string the unformatted value.
 	 */
-	public function unformatAttribute($object, $attribute)
+	protected function unformatAttribute($object, $attribute)
 	{
-		return date($this->timeWidth !== null ? 'Y-m-d H:i:s' : 'Y-m-d', $this->convertDateToTimestamp($object->$attribute));
+		$object->$attribute = date($this->timeWidth !== null ? 'Y-m-d H:i:s' : 'Y-m-d', $this->convertDateToTimestamp($object->$attribute));
 	}
 
 	/**

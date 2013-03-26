@@ -1,16 +1,30 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Christoffer
- * Date: 26.3.2013
- * Time: 22:43
- * To change this template use File | Settings | File Templates.
+ * BooleanFormatter class file.
+ * @author Christoffer Niska <christoffer.niska@gmail.com>
+ * @copyright Copyright &copy; Christoffer Niska 2013-
+ * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @package crisu83.yii-formatter.formatters
  */
 
 class BooleanFormatter extends Formatter
 {
-	public $trueValue = 'yes';
-	public $falseValue = 'no';
+	/**
+	 * @var string the true value to format from.
+	 */
+	public $trueFromValue = '1';
+	/**
+	 * @var string the true value to format to.
+	 */
+	public $trueToValue = 'yes';
+	/**
+	 * @var string the false value to format from.
+	 */
+	public $falseFromValue = '0';
+	/**
+	 * @var string the false value to format to.
+	 */
+	public $falseToValue = 'no';
 
 	/**
 	 * Formats the given attribute.
@@ -18,9 +32,9 @@ class BooleanFormatter extends Formatter
 	 * @param string $attribute the name of the attribute.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	protected function formatAttribute($object, $attribute)
 	{
-		return (int)$object->$attribute === 1 ? $this->trueValue : $this->falseValue;
+		$object->$attribute = ($object->$attribute === $this->trueFromValue ? $this->trueToValue : $this->falseToValue);
 	}
 
 	/**
@@ -29,8 +43,8 @@ class BooleanFormatter extends Formatter
 	 * @param string $attribute the name of the attribute.
 	 * @return string the unformatted value.
 	 */
-	public function unformatAttribute($object, $attribute)
+	protected function unformatAttribute($object, $attribute)
 	{
-		return $object->$attribute === $this->trueValue ? 1 : 0;
+		$object->$attribute = ($object->$attribute === $this->trueToValue) ? $this->trueFromValue : $this->falseFromValue;
 	}
 }
