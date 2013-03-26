@@ -45,7 +45,10 @@ abstract class Formatter extends CComponent
 		if (is_string($attributes))
 			$attributes = preg_split('/[\s,]+/', $attributes, -1, PREG_SPLIT_NO_EMPTY);
 
-		if (is_array($name) && method_exists($object, $name[0]) && method_exists($object, $name[1]))
+		if (is_array($name)
+			&& isset($name[0], $name[1])
+			&& method_exists($object, $name[0])
+			&& method_exists($object, $name[1]))
 		{
 			$formatter = new InlineFormatter();
 			$formatter->attributes = $attributes;
