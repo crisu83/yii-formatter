@@ -20,14 +20,17 @@ class DateTimeFormatter extends Formatter
 
 	/**
 	 * @var string the date format.
+	 * Valid values are 'american' and 'european' (defaults to 'european').
 	 */
 	public $format = self::FORMAT_EUROPEAN;
 	/**
-	 * @var string the date width, valid values are 'short', 'medium', 'long' (defaults to 'medium').
+	 * @var string the date width.
+	 * Valid values are 'short', 'medium', 'long' (defaults to 'medium').
 	 */
 	public $dateWidth = self::WIDTH_MEDIUM;
 	/**
-	 * @var string the time width, valid values are 'short', 'medium', 'long' (defaults to 'medium').
+	 * @var string the time width.
+	 * Valid values are 'short', 'medium', 'long' (defaults to 'medium').
 	 */
 	public $timeWidth = self::WIDTH_MEDIUM;
 
