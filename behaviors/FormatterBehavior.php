@@ -16,6 +16,8 @@ class FormatterBehavior extends CActiveRecordBehavior
 	 */
 	public $formatters = array();
 
+	private $_formatters = array();
+
 	/**
 	 * Formats the given attribute.
 	 * @param string $name the name of the formatter.
@@ -48,7 +50,7 @@ class FormatterBehavior extends CActiveRecordBehavior
 	{
 		if (isset($this->formatters[$name]))
 			$params = CMap::mergeArray($this->formatters[$name], $params);
-		$formatter = Formatter::createFormatter($name, $this->owner, $attributes, $params);
+		$formatter = Formatter::createFormatter($name, $this->owner, $params);
 		$formatter->format($this->owner, $attributes);
 	}
 
@@ -62,7 +64,7 @@ class FormatterBehavior extends CActiveRecordBehavior
 	{
 		if (isset($this->formatters[$name]))
 			$params = CMap::mergeArray($this->formatters[$name], $params);
-		$formatter = Formatter::createFormatter($name, $this->owner, $attributes, $params);
+		$formatter = Formatter::createFormatter($name, $this->owner, $params);
 		$formatter->unformat($this->owner, $attributes);
 	}
 }
