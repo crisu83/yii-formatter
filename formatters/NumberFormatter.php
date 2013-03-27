@@ -1,22 +1,19 @@
 <?php
 /**
- * InlineFormatter class file.
+ * NumberFormatter class file.
  * @author Christoffer Niska <christoffer.niska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2013-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @package crisu83.yii-formatter.formatters
  */
 
-class InlineFormatter extends Formatter
+class NumberFormatter extends Formatter
 {
 	/**
-	 * @var string the name of the format method.
+	 * @var array the format configurations.
+	 * @see CNumberFormatter::formatNumber
 	 */
-	public $method;
-	/**
-	 * @var array additional parameters for the formatter.
-	 */
-	public $params;
+	public $format;
 
 	/**
 	 * Formats the given attribute.
@@ -26,7 +23,6 @@ class InlineFormatter extends Formatter
 	 */
 	public function formatAttribute($object, $attribute)
 	{
-		$method = $this->method;
-		return $object->$method($attribute, $this->params);
+		return Yii::app()->numberFormatter->formatNumber($this->format, $object->$attribute);
 	}
 }

@@ -10,21 +10,13 @@
 class BooleanFormatter extends Formatter
 {
 	/**
-	 * @var string the true value to format from.
-	 */
-	public $trueFromValue = '1';
-	/**
 	 * @var string the true value to format to.
 	 */
-	public $trueToValue = 'yes';
-	/**
-	 * @var string the false value to format from.
-	 */
-	public $falseFromValue = '0';
+	public $trueValue = 'Yes';
 	/**
 	 * @var string the false value to format to.
 	 */
-	public $falseToValue = 'no';
+	public $falseValue = 'No';
 
 	/**
 	 * Formats the given attribute.
@@ -32,19 +24,8 @@ class BooleanFormatter extends Formatter
 	 * @param string $attribute the name of the attribute.
 	 * @return string the formatted value.
 	 */
-	protected function formatAttribute($object, $attribute)
+	public function formatAttribute($object, $attribute)
 	{
-		$object->$attribute = ($object->$attribute === $this->trueFromValue ? $this->trueToValue : $this->falseToValue);
-	}
-
-	/**
-	 * Unformats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
-	 * @return string the unformatted value.
-	 */
-	protected function unformatAttribute($object, $attribute)
-	{
-		$object->$attribute = ($object->$attribute === $this->trueToValue) ? $this->trueFromValue : $this->falseFromValue;
+		return $object->$attribute === '1' ? $this->trueValue : $this->falseValue;
 	}
 }
