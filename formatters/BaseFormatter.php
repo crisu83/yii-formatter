@@ -7,7 +7,7 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-abstract class Formatter extends CComponent
+abstract class BaseFormatter extends CComponent
 {
 	// List of built in formatters.
 	public static $builtInFormatters = array(
@@ -15,43 +15,41 @@ abstract class Formatter extends CComponent
 		'currency'=>'CurrencyFormatter',
 		'dateTime'=>'DateTimeFormatter',
 		'decimal'=>'DecimalFormatter',
-		'email'=>'EmailFormatter',
 		'number'=>'NumberFormatter',
 		'percentage'=>'PercentageFormatter',
 	);
 
 	/**
-	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * Formats the given value.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	abstract public function formatAttribute($object, $attribute);
+	abstract public function format($value);
 
 	/**
-	 * @param string $name the name or class of the formatter.
+	 * @param string $format the name or class of the formatter.
 	 * @param CModel $object the model.
 	 * @param array $params initial values to be applied to the formatter properties.
-	 * @return Formatter the formatter instance.
+	 * @return BaseFormatter the formatter instance.
 	 */
-	public static function createFormatter($name, $object, $params = array())
+	public static function createFormatter($format, $params = array())
 	{
-		if (method_exists($object, $name))
+		if (is_callable($format))
 		{
 			$formatter = new InlineFormatter();
-			$formatter->method = $name;
+			$formatter->method = $format;
 			$formatter->params = $params;
 		}
 		else
 		{
-			if (isset(self::$builtInFormatters[$name]))
-				$className = Yii::import(self::$builtInFormatters[$name], true);
+			if (isset(self::$builtInFormatters[$format]))
+				$className = Yii::import(self::$builtInFormatters[$format], true);
 			else
-				$className = Yii::import($name, true);
+				$className = Yii::import($format, true);
 
 			$formatter = new $className;
-			foreach ($params as $name => $value)
-				$formatter->$name = $value;
+			foreach ($params as $format => $value)
+				$formatter->$format = $value;
 		}
 
 		return $formatter;

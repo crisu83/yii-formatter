@@ -7,26 +7,41 @@
  * @package crisu83.yii-formatter.behaviors
  */
 
-Yii::import('vendor.crisu83.yii-formatter.formatters.*');
-
 class FormatterBehavior extends CBehavior
 {
 	/**
 	 * @var array an array of formatter configurations (name=>config).
 	 */
 	public $formatters = array();
+	/**
+	 * @var string the name of the formatter component (defaults to 'format').
+	 */
+	public $componentID = 'format';
+
+	private $_formatter;
 
 	/**
 	 * Formats the given attribute.
-	 * @param string $name the name of the formatter.
-	 * @param string $attribute the name of the attribute.
+	 * @param string $format the name of the formatter.
+	 * @param string $value the value to be formatted.
 	 * @param array $params initial values to be applied to the formatter properties.
 	 */
-	public function formatAttribute($name, $attribute, $params = array())
+	public function formatAttribute($format, $value, $params = array())
 	{
-		if (isset($this->formatters[$name]))
-			$params = CMap::mergeArray($this->formatters[$name], $params);
-		$formatter = Formatter::createFormatter($name, $this->owner, $params);
-		return $formatter->formatAttribute($this->owner, $attribute);
+		if (is_string($format) && isset($this->formatters[$format]))
+			$params = CMap::mergeArray($this->formatters[$format], $params);
+		return $this->getFormatter()->runFormatter($format, $value, $params);
+	}
+
+	/**
+	 * Returns the formatter instance.
+	 * @return Formatter the formatter.
+	 */
+	public function getFormatter()
+	{
+		if (isset($this->_formatter))
+			return $this->_formatter;
+		else
+			return $this->_formatter = Yii::app()->getComponent($this->componentID);
 	}
 }

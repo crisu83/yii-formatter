@@ -7,7 +7,7 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-class NumberFormatter extends Formatter
+class NumberFormatter extends BaseFormatter
 {
 	/**
 	 * @var array the format configurations.
@@ -16,13 +16,12 @@ class NumberFormatter extends Formatter
 	public $format;
 
 	/**
-	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * Formats the given value.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	public function format($value)
 	{
-		return Yii::app()->numberFormatter->formatNumber($this->format, $object->$attribute);
+		return Yii::app()->numberFormatter->formatNumber($this->format, $value);
 	}
 }

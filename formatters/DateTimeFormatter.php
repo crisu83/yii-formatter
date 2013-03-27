@@ -7,7 +7,7 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-class DateTimeFormatter extends Formatter
+class DateTimeFormatter extends BaseFormatter
 {
 	// Date and time widths.
 	const WIDTH_SHORT = 'short';
@@ -31,15 +31,14 @@ class DateTimeFormatter extends Formatter
 	public $pattern;
 
 	/**
-	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * Formats the given value.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	public function format($value)
 	{
 		return !isset($this->pattern)
-			? Yii::app()->dateFormatter->formatDateTime($object->$attribute, $this->dateWidth, $this->timeWidth)
-			: Yii::app()->dateFormatter->format($this->pattern, $object->$attribute);
+			? Yii::app()->dateFormatter->formatDateTime($value, $this->dateWidth, $this->timeWidth)
+			: Yii::app()->dateFormatter->format($this->pattern, $value);
 	}
 }

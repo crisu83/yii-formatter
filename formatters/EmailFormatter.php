@@ -7,16 +7,15 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-class EmailFormatter extends Formatter
+class EmailFormatter extends BaseFormatter
 {
 	/**
 	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	public function formatAttribute($value)
 	{
-		return CHtml::mailto($object->$attribute);
+		return CHtml::mailto($value);
 	}
 }

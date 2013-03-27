@@ -7,10 +7,10 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-class InlineFormatter extends Formatter
+class InlineFormatter extends BaseFormatter
 {
 	/**
-	 * @var string the name of the format method.
+	 * @var array the callable format method.
 	 */
 	public $method;
 	/**
@@ -19,14 +19,13 @@ class InlineFormatter extends Formatter
 	public $params;
 
 	/**
-	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * Formats the given value.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	public function format($value)
 	{
 		$method = $this->method;
-		return $object->$method($attribute, $this->params);
+		return call_user_func_array($method, array($value, $this->params));
 	}
 }

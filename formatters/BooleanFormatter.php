@@ -7,7 +7,7 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-class BooleanFormatter extends Formatter
+class BooleanFormatter extends BaseFormatter
 {
 	/**
 	 * @var string the true value to format to.
@@ -19,13 +19,12 @@ class BooleanFormatter extends Formatter
 	public $falseValue = 'No';
 
 	/**
-	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * Formats the given value.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	public function format($value)
 	{
-		return $object->$attribute ? $this->trueValue : $this->falseValue;
+		return $value ? $this->trueValue : $this->falseValue;
 	}
 }

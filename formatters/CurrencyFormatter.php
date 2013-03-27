@@ -7,7 +7,7 @@
  * @package crisu83.yii-formatter.formatters
  */
 
-class CurrencyFormatter extends Formatter
+class CurrencyFormatter extends BaseFormatter
 {
 	/**
 	 * @var string 3-letter ISO 4217 code.
@@ -21,15 +21,14 @@ class CurrencyFormatter extends Formatter
 	public $pattern;
 
 	/**
-	 * Formats the given attribute.
-	 * @param CModel $object the model.
-	 * @param string $attribute the name of the attribute.
+	 * Formats the given value.
+	 * @param string $value the value to format.
 	 * @return string the formatted value.
 	 */
-	public function formatAttribute($object, $attribute)
+	public function format($value)
 	{
 		return !isset($this->pattern)
-			? Yii::app()->numberFormatter->formatCurrency($object->$attribute, $this->currency)
-			: Yii::app()->numberFormatter->format($this->pattern, $object->$attribute, $this->currency);
+			? Yii::app()->numberFormatter->formatCurrency($value, $this->currency)
+			: Yii::app()->numberFormatter->format($this->pattern, $value, $this->currency);
 	}
 }
