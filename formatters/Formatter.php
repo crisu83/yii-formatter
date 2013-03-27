@@ -12,7 +12,12 @@ abstract class Formatter extends CComponent
 	// List of built in formatters.
 	public static $builtInFormatters = array(
 		'boolean'=>'BooleanFormatter',
+		'currency'=>'CurrencyFormatter',
 		'dateTime'=>'DateTimeFormatter',
+		'decimal'=>'DecimalFormatter',
+		'email'=>'EmailFormatter',
+		'number'=>'NumberFormatter',
+		'percentage'=>'PercentageFormatter',
 	);
 
 	/**
