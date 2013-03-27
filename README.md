@@ -5,7 +5,7 @@ A collection of formatters for the Yii PHP framework.
 
 ## Usage
 
-In order to use the formatters you need to attach the formatter behavior to your model.
+In order to start using the formatters you need to attach the formatter behavior to your model.
 
 ```php
 function behaviors() {
