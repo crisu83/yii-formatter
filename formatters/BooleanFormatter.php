@@ -26,6 +26,6 @@ class BooleanFormatter extends Formatter
 	 */
 	public function formatAttribute($object, $attribute)
 	{
-		return $object->$attribute === '1' ? $this->trueValue : $this->falseValue;
+		return $object->$attribute ? $this->trueValue : $this->falseValue;
 	}
 }
