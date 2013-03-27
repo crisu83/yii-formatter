@@ -51,14 +51,14 @@ class Formatter extends CFormatter
 
 	/**
 	 * Formats the given value using an inline formatter.
-	 * @param array $method the callable.
+	 * @param array $callback the callback.
 	 * @param string $value the value to be formatted.
 	 * @param array $params additional parameters that are passed to the formatting method..
 	 * @return string the formatted value.
 	 */
-	public function formatInline($method, $value, $params = array())
+	public function formatInline($callback, $value, $params = array())
 	{
-		return $this->runFormatter($method, $value, $params);
+		return $this->runFormatter($callback, $value, $params);
 	}
 
 	/**
