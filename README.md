@@ -18,7 +18,7 @@ function behaviors() {
 }
 ```
 
-When the behavior is attached you can call it to format any attribute value using a built in formatter or if necessary your own.
+When the behavior is attached you can call it to format any attribute value using a built in formatter, or if necessary you can write your own.
 
 ```php
 $model->formatAttribute('boolean', 'published');
