@@ -23,13 +23,14 @@ class FormatterBehavior extends CBehavior
 	/**
 	 * Formats the given attribute.
 	 * @param string $format the name of the formatter.
-	 * @param string $value the value to be formatted.
+	 * @param string $attribute the attribute to be formatted.
 	 * @param array $params initial values to be applied to the formatter properties.
 	 */
-	public function formatAttribute($format, $value, $params = array())
+	public function formatAttribute($format, $attribute, $params = array())
 	{
 		if (is_string($format) && isset($this->formatters[$format]))
 			$params = CMap::mergeArray($this->formatters[$format], $params);
+		$value = $this->owner->{$attribute};
 		return $this->getFormatter()->runFormatter($format, $value, $params);
 	}
 
