@@ -25,6 +25,8 @@ class BooleanFormatter extends BaseFormatter
 	 */
 	public function format($value)
 	{
+		if (!isset($value))
+			return null;
 		return $value ? $this->trueValue : $this->falseValue;
 	}
 }
