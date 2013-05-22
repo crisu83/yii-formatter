@@ -28,10 +28,14 @@ class FormatterBehavior extends CBehavior
 	 */
 	public function formatAttribute($format, $attribute, $params = array())
 	{
-		if (is_string($format) && isset($this->formatters[$format]))
-			$params = CMap::mergeArray($this->formatters[$format], $params);
-		$value = $this->owner->{$attribute};
-		return $this->getFormatter()->runFormatter($format, $value, $params);
+		if (!empty($this->owner->$attribute))
+		{
+			if (is_string($format) && isset($this->formatters[$format]))
+				$params = CMap::mergeArray($this->formatters[$format], $params);
+			return $this->getFormatter()->runFormatter($format, $this->owner->$attribute, $params);
+		}
+		else
+			return '';
 	}
 
 	/**
